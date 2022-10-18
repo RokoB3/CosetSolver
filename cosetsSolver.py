@@ -1,6 +1,3 @@
-from audioop import mul
-
-
 orders = input("\nInput |G|, |H| and the max number in permutation (eg.: 24 6 4)\n").split(' ')
 oG = int(orders[0])
 oH = int(orders[1])
