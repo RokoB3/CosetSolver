@@ -1,2 +1,2 @@
-# cosetSolver
-Solve all left cosets of permutation groups
+# CosetSolver
+## Solve all left cosets of permutation groups
