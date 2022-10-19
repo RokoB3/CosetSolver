@@ -1,3 +1,5 @@
+option = input("\nLeft(1) or Right(2) cosets? ")
+
 orders = input("\nInput |G|, |H| and the max number in permutation (eg.: 24 6 4)\n").split(' ')
 oG = int(orders[0])
 oH = int(orders[1])
@@ -41,7 +43,7 @@ def getIndex(perm, num):
 
 
 # [full_permutation][permutation_index][element]
-def multiplyLeft(g, h):
+def multiply(g, h):
     perm = []
     for num in range(1, maxNum +1):
         index = None
@@ -97,30 +99,48 @@ def multiplyLeft(g, h):
     if [1] in perm1 and len(perm1) > 1: perm1.pop(0)
     return perm1
 
-            
 
-print('\n ~~~THE COSETS~~~')
-mults = {}
-for i in range(len(G)):
-    mults['{G[i]}'] = []
-    ls = []
-    for j in range(len(H)):
-        ls.append(multiplyLeft(G[i], H[j]))
-        mults['{G[i]}'].append(ls[-1])
+if option == '1':
+    print('\n ~~~THE LEFT COSETS~~~')
+    for i in range(len(G)):
+        ls = []
+        for j in range(len(H)):
+            ls.append(multiply(G[i], H[j]))
 
-    la = ls
-    string = ''
-    for a in range(len(la)):
-        ls = la[a]
-        true = True
-        for cycle in range(len(ls)):
-            for z in range(len(ls[cycle])):
-                ls[cycle][z] = str(ls[cycle][z])
-            string += '(' + ''.join(ls[cycle]) + ')'
+        la = ls
+        string = ''
+        for a in range(len(la)):
+            ls = la[a]
+            true = True
+            for cycle in range(len(ls)):
+                for z in range(len(ls[cycle])):
+                    ls[cycle][z] = str(ls[cycle][z])
+                string += '(' + ''.join(ls[cycle]) + ')'
 
-            if (ls[cycle] == 0): true = False
-        if (a != len(la)-1) and (true == True): string += ', '
+                if (ls[cycle] == 0): true = False
+            if (a != len(la)-1) and (true == True): string += ', '
 
-    print('(' + G2[i] + ') : {'+string+'}')
+        print('(' + G2[i] + ') : {'+string+'}')
 
-mults = {}
+else:
+    print('\n ~~~THE RIGHT COSETS~~~')
+    for i in range(len(G)):
+        ls = []
+        for j in range(len(H)):
+            ls.append(multiply(H[j], G[i]))
+
+        la = ls
+        string = ''
+        for a in range(len(la)):
+            ls = la[a]
+            true = True
+            for cycle in range(len(ls)):
+                for z in range(len(ls[cycle])):
+                    ls[cycle][z] = str(ls[cycle][z])
+                string += '(' + ''.join(ls[cycle]) + ')'
+
+                if (ls[cycle] == 0): true = False
+            if (a != len(la)-1) and (true == True): string += ', '
+
+        print('(' + G2[i] + ') : {'+string+'}')
+
